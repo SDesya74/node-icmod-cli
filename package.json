@@ -1,0 +1,22 @@
+{
+	"name": "icmod-cli",
+	"version": "1.0.0",
+	"description": "Toolchain for develop mods on Horizon/InnerCore",
+	"preferGlobal": true,
+	"bin": {
+		"icmod": "bin/commands.js"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"horizon",
+		"icmods",
+		"icmod",
+		"innercore",
+		"toolchain",
+		"minecraft"
+	],
+	"author": "SDesya74",
+	"license": "MIT"
+}
