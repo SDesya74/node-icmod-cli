@@ -1,6 +1,6 @@
 {
 	"name": "icmod-cli",
-	"version": "1.0.0",
+	"version": "0.0.2",
 	"description": "Toolchain for develop mods on Horizon/InnerCore",
 	"preferGlobal": true,
 	"bin": {
@@ -15,7 +15,9 @@
 		"icmod",
 		"innercore",
 		"toolchain",
-		"minecraft"
+		"minecraft",
+		"cli",
+		"mobile"
 	],
 	"author": "SDesya74",
 	"license": "MIT"
