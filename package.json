@@ -1,24 +1,25 @@
 {
-	"name": "icmod-cli",
-	"version": "0.0.2",
-	"description": "Toolchain for develop mods on Horizon/InnerCore",
-	"preferGlobal": true,
-	"bin": {
-		"icmod": "bin/commands.js"
-	},
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"keywords": [
-		"horizon",
-		"icmods",
-		"icmod",
-		"innercore",
-		"toolchain",
-		"minecraft",
-		"cli",
-		"mobile"
-	],
-	"author": "SDesya74",
-	"license": "MIT"
+    "name": "icmod-cli",
+    "description": "Toolchain for develop mods on Horizon/InnerCore",
+    "version": "0.0.3",
+    "main": "./bin/index.js",
+    "preferGlobal": true,
+    "bin": {
+        "icmod": "./bin/index.js"
+    },
+    "devDependencies": {
+        "@types/node": "^15.12.5"
+    },
+    "keywords": [
+        "horizon",
+        "icmods",
+        "icmod",
+        "innercore",
+        "toolchain",
+        "minecraft",
+        "cli",
+        "mobile"
+    ],
+    "author": "SDesya74",
+    "license": "MIT"
 }
