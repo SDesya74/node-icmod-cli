@@ -4,7 +4,6 @@ import { readdirSync }                     from "fs"
 import { join }                            from "path"
 import { processCommand, registerCommand } from "./util/commands"
 
-console.log(__dirname)
 readdirSync(join(__dirname, "commands"))
     .forEach(file => {
         require(`./commands/${ file.substring(0, file.lastIndexOf(".")) }`)
