@@ -6,7 +6,7 @@ async function readKey(): Promise<Key> {
 }
 
 function decoratePrompt(text) {
-    return `\x1b[32m?\x1b[0m ${ text }`
+    return ` \x1b[32m?\x1b[0m ${ text }`
 }
 
 function liftUpConsoleCursor(lineAmount) {
@@ -56,7 +56,7 @@ export async function selectMany(prompt, items): Promise<string[]> {
             let checked = option.checked
             let selected = selection === i
             let prefix = selected ? `\x1b[36m` + (checked ? "(•)" : "( )") : (checked ? "\x1b[32m(•)\x1b[0m" : "( )")
-            return ` ${ prefix } ${ option.label }\x1b[0m`
+            return `  ${ prefix } ${ option.label }\x1b[0m`
         }).join(EOL))
     }
     
@@ -101,7 +101,7 @@ export async function selectOne<T>(prompt, items: SelectOneOption<T>[]): Promise
     function showCurrentState() {
         console.log(
             items
-                .map((e, i) => ` ${ selection === i ? "\x1b[36m" : "" }• ${ e.label }\x1b[0m`)
+                .map((e, i) => `  ${ selection === i ? "\x1b[36m" : "" }• ${ e.label }\x1b[0m`)
                 .join(EOL)
         )
     }
