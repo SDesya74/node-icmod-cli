@@ -37,3 +37,6 @@ icmod build
 - [ ] Dev mode
 - [ ] Not mod reload
 - [ ] Package manager
+
+## Supporting Icmod
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P12H52U)
