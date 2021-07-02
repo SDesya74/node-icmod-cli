@@ -16,7 +16,7 @@ export function copyFolderRecursiveSync(source, target, targetDirName = null) {
     let files = []
     
     const targetFolder = targetDirName ?? join(target, basename(source))
-    if (!existsSync(targetFolder)) mkdirSync(targetFolder)
+    if (!existsSync(targetFolder)) mkdirSync(targetFolder, { recursive: true})
     
     if (lstatSync(source).isDirectory()) {
         files = readdirSync(source)
