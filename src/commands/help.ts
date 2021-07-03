@@ -15,7 +15,7 @@ Commands:
   create, c   Create a project folder
   help, h     Displays this message
   
-Trigger this inside Icmod project (and npm/yarn install) for more commands.
+Trigger this inside Icmod project for more commands.
 `)
         }
     })
