@@ -1,6 +1,8 @@
 import { createInterface, emitKeypressEvents, Key } from "readline"
 import { EOL }                                      from "os"
+import Timeout = NodeJS.Timeout
 
+// region Utils
 async function readKey(): Promise<Key> {
     return new Promise(async resolve => process.stdin.once("keypress", (_, key) => resolve(key)))
 }
@@ -194,4 +196,5 @@ function stopKeyReader() {
     keyReader = null
     if (process.stdin.isTTY) process.stdin.setRawMode(false)
 }
+
 // endregion

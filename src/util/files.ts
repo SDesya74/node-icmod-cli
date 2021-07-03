@@ -1,7 +1,8 @@
-import { existsSync, lstatSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "fs"
-import { basename, join }                                                             from "path"
+import { existsSync, lstatSync, readFileSync } from "fs"
+import { basename, join }                      from "path"
+import { mkdir, readdir, writeFile }           from "fs/promises"
 
-function copyFileSync(source, target) {
+async function copyFile(source, target) {
     let targetFile = target
     if (existsSync(target)) {
         if (lstatSync(target).isDirectory()) {
@@ -9,24 +10,24 @@ function copyFileSync(source, target) {
         }
     }
     
-    writeFileSync(targetFile, readFileSync(source))
+    await writeFile(targetFile, readFileSync(source))
 }
 
-export function copyFolderRecursiveSync(source, target, targetDirName = null) {
+export async function copyFolderRecursive(source, target, targetDirName = null) {
     let files = []
     
     const targetFolder = targetDirName ?? join(target, basename(source))
-    if (!existsSync(targetFolder)) mkdirSync(targetFolder, { recursive: true})
+    if (!existsSync(targetFolder)) await mkdir(targetFolder, { recursive: true })
     
     if (lstatSync(source).isDirectory()) {
-        files = readdirSync(source)
-        files.forEach(function (file) {
+        files = await readdir(source)
+        for (const file of files) {
             const curSource = join(source, file)
             if (lstatSync(curSource).isDirectory()) {
-                copyFolderRecursiveSync(curSource, targetFolder)
+                await copyFolderRecursive(curSource, targetFolder)
             } else {
-                copyFileSync(curSource, targetFolder)
+                await copyFile(curSource, targetFolder)
             }
-        })
+        }
     }
 }
