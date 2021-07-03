@@ -5,8 +5,8 @@ import { copyFolderRecursiveSync }                                   from "./uti
 
 export class Icmod {
     static resourceTranslator: { [key: string]: { path: string, resourceType?: string } } = {
-        "gui": { path: "assets/gui", resourceType: "gui" },
-        "resources": { path: "assets/resources", resourceType: "resource" },
+        "gui": { path: "assets", resourceType: "gui" },
+        "resources": { path: "assets", resourceType: "resource" },
         "resource_pack": { path: "assets/minecraft_packs/resource" },
         "behavior_pack": { path: "assets/minecraft_packs/behavior" }
     }
