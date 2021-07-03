@@ -1,7 +1,11 @@
-import { BuildConfig, IcmodInfo }                                    from "models"
-import { closeSync, existsSync, mkdirSync, openSync, writeFileSync } from "fs"
-import { join }                                                      from "path"
-import { copyFolderRecursiveSync }                                   from "./util/files"
+import { BuildConfig, IcmodConfig, IcmodInfo }                                     from "models"
+import { closeSync, copyFileSync, existsSync, mkdirSync, openSync, writeFileSync } from "fs"
+import { basename, join }                                                          from "path"
+import { copyFolderRecursive }                                                     from "./util/files"
+import * as AdmZip                                                                 from "adm-zip"
+import { SpinnerProgress }                                                         from "./util/cli"
+import { writeFile }                                                               from "fs/promises"
+
 
 export class Icmod {
     static resourceTranslator: { [key: string]: { path: string, resourceType?: string } } = {
@@ -12,11 +16,13 @@ export class Icmod {
     }
     root: string
     info: IcmodInfo
-    config: BuildConfig
+    iconFile: string
+    buildConfig: BuildConfig
+    config: IcmodConfig
     
     constructor(root: string) {
         this.root = root
-        this.config = {
+        this.buildConfig = {
             defaultConfig: {
                 api: "CoreEngine",
                 buildType: "develop",
@@ -37,8 +43,11 @@ export class Icmod {
         if (!existsSync(this.root)) mkdirSync(this.root, { recursive: true })
         
         writeFileSync(join(this.root, "mod.info"), JSON.stringify(this.info, null, 4))
-        writeFileSync(join(this.root, "build.config"), JSON.stringify(this.config, null, 4))
+        writeFileSync(join(this.root, "build.config"), JSON.stringify(this.buildConfig, null, 4))
+        writeFileSync(join(this.root, "config.json"), JSON.stringify(this.config, null, 4))
         closeSync(openSync(join(this.root, ".nomedia"), "w"))
+        
+        if (this.iconFile) copyFileSync(this.iconFile, join(this.root, "mod_icon.png"))
     }
     
     addResourceDirectory(sourcePath: string, type: "gui" | "resources" | "resource_pack" | "behavior_pack") {
