@@ -14,6 +14,7 @@ function ask(text) {
 function liftUpConsoleCursor(lineAmount) {
     console.log(`\x1b[${ lineAmount + 1 }A`)
 }
+
 // endregion
 
 export function info(...data: any[]) {
@@ -22,6 +23,10 @@ export function info(...data: any[]) {
 
 export function warn(...data: any[]) {
     console.warn(` \x1b[32m!\x1b[33m`, ...data, `\x1b[0m`)
+}
+
+export function error(...data: any[]) {
+    console.warn(` \x1b[32m!\x1b[31m`, ...data, `\x1b[0m`)
 }
 
 export function success(...data: any[]) {
