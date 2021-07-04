@@ -54,7 +54,7 @@ export async function question(prompt, defaultValue = null): Promise<string> {
         }
         
         while (true) {
-            let response = await readLine() || defaultValue
+            const response = await readLine() ?? defaultValue
             if (response == null) {
                 liftUpConsoleCursor(1)
                 continue
