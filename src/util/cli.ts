@@ -160,6 +160,7 @@ export class SpinnerProgress {
     stop() {
         clearInterval(this.timeout)
         console.log(" ".repeat(50))
+        liftUpConsoleCursor(1)
     }
     
     private showCurrentState() {
