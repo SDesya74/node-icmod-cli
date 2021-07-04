@@ -73,10 +73,10 @@ export async function selectMany(prompt, items): Promise<string[]> {
     
     function showCurrentState() {
         console.log(options.map((option, i) => {
-            let checked = option.checked
-            let selected = selection === i
-            let prefix = selected ? `\x1b[36m` + (checked ? "(•)" : "( )") : (checked ? "\x1b[32m(•)\x1b[0m" : "( )")
-            return `  ${ prefix } ${ option.label }\x1b[0m`
+            const checked = option.checked
+            const selected = selection === i
+            const prefix = selected ? `\x1b[36m` + (checked ? "(•)" : "( )") : (checked ? "\x1b[32m(•)\x1b[0m" : "( )")
+            return ` ${ prefix } ${ option.label }\x1b[0m`
         }).join(EOL))
     }
     
@@ -84,12 +84,11 @@ export async function selectMany(prompt, items): Promise<string[]> {
     showCurrentState()
     
     return new Promise(async (resolve) => {
-        startKeyReader()
-        
         let key
+        startKeyReader()
         while ((key = (await readKey()).name) !== "return") {
             if (key === "space") {
-                let item = options[selection]
+                const item = options[selection]
                 item.checked = !item.checked
             } else {
                 selection += +(key === "down") - +(key === "up")
@@ -98,14 +97,8 @@ export async function selectMany(prompt, items): Promise<string[]> {
             liftUpConsoleCursor(length)
             showCurrentState()
         }
-        
         stopKeyReader()
-        
-        resolve(
-            options
-                .filter(e => e.checked)
-                .map(e => e.value)
-        )
+        resolve(options.filter(e => e.checked).map(e => e.value))
     })
 }
 
@@ -120,9 +113,8 @@ export async function selectOne<T>(prompt, items: SelectOneOption<T>[]): Promise
     
     function showCurrentState() {
         console.log(
-            items
-                .map((e, i) => `  ${ selection === i ? "\x1b[36m" : "" }• ${ e.label }\x1b[0m`)
-                .join(EOL)
+            items.map((e, i) => ` ${ selection === i ? "\x1b[36m" : "" }• ${ e.label }\x1b[0m`)
+                 .join(EOL)
         )
     }
     
