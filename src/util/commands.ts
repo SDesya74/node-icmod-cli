@@ -5,9 +5,9 @@ export function registerCommand(regex, action) {
 }
 
 export function processCommand(args) {
-    let command = args.join(" ")
+    const command = args.join(" ")
     for (const { regex, action } of commands) {
-        let match = command.match(regex)
+        const match = command.match(regex)
         if (match) return action(match, args)
     }
     console.log("Command not found. Type \"icmod help\" to get list of commands.")
