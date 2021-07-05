@@ -44,10 +44,21 @@ export default register => {
             await copyFolderRecursive(featurePath, projectRoot, basename(projectRoot))
         }
         
-        const configPath = join(dir, "icmod.config.js")
-        
-        let config = readFileSync(configPath).toString()
-        config = config.replace(/{%\s*([a-zA-Z_][a-zA-Z\d+_]*)\s*%}\s*/g, (_, c) => info[c])
-        writeFileSync(configPath, config)
+        console.log(`
+ \x1b[32m[*]\x1b[0m Icmod Project initialization finished!
+
+To get started:
+
+  \x1b[33mcd ${ dirName }\x1b[0m
+  \x1b[33micmod dev\x1b[0m
+
+Icmod is relying on donations to evolve so you can buy me a coffee: https://ko-fi.com/sdesya74
+Any amount is very welcomed.
+
+Please give me a star on Github if you appreciate my work:
+https://github.com/SDesya74/node-icmod-cli
+
+Enjoy!
+`)
     })
 }
