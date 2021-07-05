@@ -18,6 +18,8 @@ declare module "models" {
         }
         
         project: {
+            outDir: string
+            api: string
             resources: ProjectResource[]
             features: string[]
             compile: ProjectCompilingSource[]
