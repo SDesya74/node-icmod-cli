@@ -42,6 +42,8 @@ export class Project {
             },
             push: {},
             project: {
+                outDir: "dist",
+                api: "CoreEngine",
                 resources: [],
                 compile: [],
                 additional: [],
