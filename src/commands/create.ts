@@ -1,20 +1,15 @@
-import { question, selectOne }     from "../util/cli"
-import { dirname, join }           from "path"
-import { copyFolderRecursiveSync }     from "../util/files"
-import { readFileSync, writeFileSync } from "fs"
+import { question, selectMany, selectOne } from "../util/cli"
+import { basename, dirname, join }         from "path"
+import { copyFolderRecursive }             from "../util/files"
+import { existsSync }                      from "fs"
+import projects                            from "../variants/projects"
+import features                            from "../variants/features"
+import { readFile, writeFile }             from "fs/promises"
 
-const ProjectTypes = [
-    {
-        label: "Mod",
-        value: {
-            template: "mod"
-        }
-    }
-]
 
 export default register => {
-    register(/create/, async () => {
-        const { template } = await selectOne("Project type: ", ProjectTypes)
+    register(/(create|c)/, async () => {
+        const { template } = await selectOne("Project type: ", projects)
         
         const info = {
             name: await question("Project name: "),
