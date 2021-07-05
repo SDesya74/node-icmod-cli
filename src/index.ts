@@ -10,7 +10,6 @@ readdirSync(join(__dirname, "commands"))
             .default(registerCommand)
     })
 
-console.log()
 if (Math.random() < 0.85) {
     console.log(`
 ██╗ ██████╗███╗   ███╗ ██████╗ ██████╗     ████████╗ ██████╗  ██████╗ ██╗      ██████╗██╗  ██╗ █████╗ ██╗███╗   ██╗
