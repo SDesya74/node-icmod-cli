@@ -11,23 +11,38 @@ export default register => {
     register(/(create|c)/, async () => {
         const { template } = await selectOne("Project type: ", projects)
         
-        const info = {
+        const context = {
             name: await question("Project name: "),
             description: await question("Project description: "),
             author: await question("Author: "),
             version: "1.0.0"
         }
         
-        const predictedDirName = info.name
-                                     .replace(/[\u{0080}-\u{FFFF}]/gu, "")
-                                     .replace(" ", "-")
+        const predictedDirName = context.name
+                                        .replace(/[\u{0080}-\u{FFFF}]/gu, "")
+                                        .replace(" ", "-")
         const dirName = await question("Project directory name: ", predictedDirName)
         
-        const dir = join(process.cwd(), dirName)
-        const root = dirname(dirname(__dirname))
-        const templateDirectory = join(root, "templates", "project", template)
+        const projectRoot = join(process.cwd(), dirName)
+        const icmodRoot = dirname(dirname(__dirname))
+        const templateDirectory = join(icmodRoot, "templates", "project", template)
         
-        copyFolderRecursiveSync(templateDirectory, dir, dirName)
+        await copyFolderRecursive(templateDirectory, projectRoot, dirName)
+        
+        const configPath = join(projectRoot, "icmod.config.js")
+        const raw = (await readFile(configPath)).toString()
+        const rendered = raw.replace(
+            /\s*<\|\s*([a-zA-Z_][a-zA-Z\d+_]*)\s*\|>\s*/g,
+            (_, c) => typeof context[c] == "string" ? context[c] : JSON.stringify(context[c])
+        )
+        await writeFile(configPath, rendered)
+        
+        for (const feature of context.features) {
+            const featurePath = join(icmodRoot, "templates", "features", feature)
+            if (!existsSync(featurePath)) throw "Feature with name " + feature + " is not exists at " + featurePath
+            
+            await copyFolderRecursive(featurePath, projectRoot, basename(projectRoot))
+        }
         
         const configPath = join(dir, "icmod.config.js")
         
